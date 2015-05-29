@@ -1,0 +1,118 @@
+﻿<div ng-controller="offersController" class="row">
+    <div class="col-md-2">
+        <div class="row top-buffer-20 refine-search">
+            <div>
+                <label>Merchant Name</label>
+            </div>
+
+            <ul class="list-offers">
+                <li ng-repeat="name in offers | unique: 'MerchantName'">
+                    <a href="javascript:"  data-ng-click="queryOffers(name.MerchantName)">{{name.MerchantName}}</a> 
+                </li>
+            </ul>
+            <div>
+                <label>Deal Status</label>
+            </div>
+            <ul class="list-offers">
+                <li ng-repeat="name in offers | unique: 'DealStatus'">
+                    <a href="javascript:"  data-ng-click="queryOffers(name.DealStatus)">{{name.DealStatus}}</a>
+</li>
+            </ul>
+            <div>
+                <label>City</label>
+            </div>
+            <ul class="list-offers">
+                <li ng-repeat="name in offers | unique: 'City'">
+                    <a href="javascript:" data-ng-click="queryOffers(name.City)">{{name.City}}</a>
+</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row top-buffer-20">
+            <div class="col-md-12">
+                <form>
+                    <div class="form-group inner-icon">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input class="form-control" placeholder="Type your search here.." id="inputlg" type="text" ng-model="txtQuery" ng-change="queryOffers(txtQuery)">
+                    </div>
+                </form>
+            </div>
+        </div>
+       
+        <div class="table-responsive row top-buffer-10">
+            <div class="col-md-12">
+                <table class="table  table-striped table-hover no-margin table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input class="no-margin" type="checkbox">
+                            </th>
+                            <th><a href="" ng-click="predicate = 'MerchantName'; reverse = false;">Merchant Name</a></th>
+                            <th class="hidden-phone"><a href="" ng-click="predicate = 'City'; reverse = false;">City</a></th>
+                            <th class="hidden-phone"><a href="" ng-click="predicate = 'DealStatus'; reverse = false;">Deal Status</a></th>
+                            <th class="hidden-phone"><a href="" ng-click="predicate = 'Date'; reverse = false;">Date</a></th>
+                            <th class="hidden-phone">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="offer in offers | orderBy: predicate:reverse" class="animate-repeat">
+                            <td>
+                                <input class="no-margin" type="checkbox">
+                            </td>
+                            <td>
+                                <span class="name">{{offer.MerchantName}}</span>
+                            </td>
+                            <td class="hidden-phone">{{offer.City}}</td>
+                            <td class="hidden-phone">
+                                <div ng-switch="offer.DealStatus">
+                                    <span ng-switch-when="Live" class="label label label-success">{{offer.DealStatus}}</span>
+                                    <span ng-switch-when="Processing" class="label label label-info">{{offer.DealStatus}}</span>
+                                    <span ng-switch-when="Pause" class="label label label-warning">{{offer.DealStatus}}</span>
+                                </div>
+                            </td>
+                            <td class="hidden-phone">{{offer.OfferStartDate}}</td>
+                            <td class="hidden-phone">
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-xs dropdown-toggle" data-original-title="" title="">
+                                        Action
+                                        <span class="caret">
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="#">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Add Offer</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        @*<li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>*@
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+</div>
